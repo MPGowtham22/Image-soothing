@@ -1,0 +1,40 @@
+pip install opencv-python
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Load an image from file
+image = cv2.imread('input_image.jpg')
+
+# Convert the image from BGR to RGB (OpenCV loads images in BGR format by default)
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Apply different smoothing techniques
+# 1. Averaging
+kernel_size = (5, 5)
+average_blur = cv2.blur(image_rgb, kernel_size)
+
+# 2. Gaussian Blur
+gaussian_blur = cv2.GaussianBlur(image_rgb, kernel_size, 0)
+
+# 3. Median Blur
+median_blur = cv2.medianBlur(image_rgb, 5)
+
+# 4. Bilateral Filter
+bilateral_filter = cv2.bilateralFilter(image_rgb, 9, 75, 75)
+
+# Display the original and smoothed images
+titles = ['Original Image', 'Averaging', 'Gaussian Blur', 'Median Blur', 'Bilateral Filter']
+images = [image_rgb, average_blur, gaussian_blur, median_blur, bilateral_filter]
+
+plt.figure(figsize=(10, 8))
+for i in range(5):
+    plt.subplot(2, 3, i + 1)
+    plt.imshow(images[i])
+    plt.title(titles[i])
+    plt.xticks([]), plt.yticks([])
+
+plt.tight_layout()
+plt.show()
+
+python image_smoothing.py
